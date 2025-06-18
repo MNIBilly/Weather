@@ -19,7 +19,7 @@ export const WeatherCard = ({
         "shadow-[0_8px_32px_rgba(0,0,0,0.3)] drop-shadow-2xl",
         "before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/20 before:to-transparent before:pointer-events-none",
         "relative overflow-hidden",
-        "hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] transition-shadow duration-300",
+        "hover:shadow-[0_12px_40px_rgba(0,0,0,0.4)] hover:scale-[1.02] transition-all duration-300 transform-gpu",
         {
           "p-4": variant === "small",
           "p-6": variant === "default",
