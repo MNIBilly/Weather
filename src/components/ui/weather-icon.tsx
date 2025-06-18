@@ -1,5 +1,3 @@
-import { cn } from "@/lib/utils";
-
 interface WeatherIconProps {
   type: "sun" | "rain" | "cloudy" | "partly-cloudy" | "moon";
   size?: "sm" | "md" | "lg" | "xl";
@@ -9,105 +7,86 @@ interface WeatherIconProps {
 export const WeatherIcon = ({
   type,
   size = "md",
-  className,
+  className = "",
 }: WeatherIconProps) => {
-  const sizeClasses = {
-    sm: "w-8 h-8",
-    md: "w-12 h-12",
-    lg: "w-16 h-16",
-    xl: "w-20 h-20",
-  };
+  const sizeClass = {
+    sm: "weather-icon-small",
+    md: "weather-icon-medium",
+    lg: "weather-icon-large",
+    xl: "weather-icon-large", // Using large for xl as well
+  }[size];
 
   const renderIcon = () => {
     switch (type) {
       case "sun":
         return (
-          <div className={cn("relative", sizeClasses[size])}>
-            <img
-              src="https://cdn.builder.io/api/v1/assets/c91491cbbb194f4fb9b6d163b60e9d95/image-c45119?format=webp&width=800"
-              alt="Sun icon"
-              className={cn("w-full h-full object-contain", sizeClasses[size])}
-            />
-          </div>
+          <img
+            src="https://cdn.builder.io/api/v1/assets/c91491cbbb194f4fb9b6d163b60e9d95/image-c45119?format=webp&width=800"
+            alt="Sun icon"
+          />
         );
 
       case "rain":
         return (
-          <div className={cn("relative", sizeClasses[size])}>
-            <img
-              src="https://cdn.builder.io/api/v1/assets/c91491cbbb194f4fb9b6d163b60e9d95/image-347a59?format=webp&width=800"
-              alt="Rain icon"
-              className={cn("w-full h-full object-contain", sizeClasses[size])}
-            />
-          </div>
+          <img
+            src="https://cdn.builder.io/api/v1/assets/c91491cbbb194f4fb9b6d163b60e9d95/image-347a59?format=webp&width=800"
+            alt="Rain icon"
+          />
         );
 
       case "partly-cloudy":
         return (
-          <div className={cn("relative", sizeClasses[size])}>
-            {/* Sun */}
-            <div
-              className={cn(
-                "absolute bg-sun rounded-full",
-                size === "xl"
-                  ? "w-10 h-10 top-0 left-0"
-                  : size === "lg"
-                    ? "w-8 h-8 top-0 left-0"
-                    : "w-6 h-6 top-0 left-0",
-              )}
-            />
-            {/* Cloud overlay */}
-            <div
-              className={cn(
-                "bg-slate-200 rounded-full absolute",
-                size === "xl"
-                  ? "w-12 h-8 top-2 right-0"
-                  : size === "lg"
-                    ? "w-10 h-6 top-2 right-0"
-                    : "w-8 h-5 top-1 right-0",
-              )}
-            />
-            <div
-              className={cn(
-                "bg-slate-200 rounded-full absolute",
-                size === "xl"
-                  ? "w-8 h-5 top-4 right-2"
-                  : size === "lg"
-                    ? "w-6 h-4 top-3 right-1"
-                    : "w-5 h-3 top-2 right-1",
-              )}
-            />
-          </div>
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              background: "linear-gradient(45deg, #FFA726 50%, #E0E0E0 50%)",
+              borderRadius: "50%",
+            }}
+          />
         );
 
       case "moon":
         return (
-          <div className={cn("relative", sizeClasses[size])}>
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              background: "#FFF8DC",
+              borderRadius: "50%",
+              position: "relative",
+            }}
+          >
             <div
-              className={cn("bg-yellow-100 rounded-full", sizeClasses[size])}
-            />
-            <div
-              className={cn(
-                "bg-weather-primary rounded-full absolute top-1 left-1",
-                size === "xl"
-                  ? "w-16 h-16"
-                  : size === "lg"
-                    ? "w-12 h-12"
-                    : "w-8 h-8",
-              )}
+              style={{
+                position: "absolute",
+                top: "10%",
+                left: "10%",
+                width: "80%",
+                height: "80%",
+                background: "#4ECDC4",
+                borderRadius: "50%",
+              }}
             />
           </div>
         );
 
       default:
         return (
-          <div className={cn("bg-slate-300 rounded-full", sizeClasses[size])} />
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              background: "#E0E0E0",
+              borderRadius: "50%",
+            }}
+          />
         );
     }
   };
 
   return (
-    <div className={cn("flex items-center justify-center", className)}>
+    <div className={`weather-icon ${sizeClass} ${className}`}>
       {renderIcon()}
     </div>
   );
