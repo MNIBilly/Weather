@@ -15,7 +15,9 @@ export const WeatherCard = ({
   return (
     <div
       className={cn(
-        "bg-white/15 backdrop-blur-md border border-white/20 rounded-3xl text-white shadow-xl",
+        "bg-white/15 backdrop-blur-md border border-white/25 rounded-3xl text-white shadow-2xl",
+        "before:absolute before:inset-0 before:rounded-3xl before:bg-gradient-to-br before:from-white/20 before:to-transparent before:pointer-events-none",
+        "relative overflow-hidden",
         {
           "p-4": variant === "small",
           "p-6": variant === "default",
@@ -24,7 +26,7 @@ export const WeatherCard = ({
         className,
       )}
     >
-      {children}
+      <div className="relative z-10">{children}</div>
     </div>
   );
 };
