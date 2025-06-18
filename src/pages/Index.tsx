@@ -76,36 +76,39 @@ const Index = () => {
         <div className="top-grid">
           {/* Current Temperature with Header */}
           <div className="weather-card temperature-card">
-            <div className="weather-card-inner">
-              {/* Header with Date Navigation and Search */}
-              <div className="header">
-                <div className="date-nav">
-                  <ChevronLeft className="nav-button" />
-                  <span className="date-text">June 16 2025</span>
-                  <ChevronRight className="nav-button" />
-                </div>
-                <div className="search-container">
-                  <Search className="search-icon" />
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    className="search-input"
-                  />
-                </div>
+            {/* Header with Date Navigation and Search */}
+            <div className="header">
+              <div className="date-nav">
+                <ChevronLeft className="nav-button" />
+                <span className="date-text">June 16 2025</span>
+                <ChevronRight className="nav-button" />
               </div>
+              <div className="search-container">
+                <Search className="search-icon" />
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="search-input"
+                />
+              </div>
+            </div>
 
-              {/* Temperature Display */}
-              <div className="temperature-display">
-                <div className="temperature-info">
-                  <div className="main-temperature">27°C</div>
-                  <div className="location">Maribor</div>
-                  <div className="temperature-range">
-                    <div className="temp-range-item">Max: 35°C</div>
-                    <div className="temp-range-item">Min: 17°C</div>
+            {/* Nested Weather Card for Temperature Display */}
+            <div className="weather-card">
+              <div className="weather-card-inner">
+                {/* Temperature Display */}
+                <div className="temperature-display">
+                  <div className="temperature-info">
+                    <div className="main-temperature">27°C</div>
+                    <div className="location">Maribor</div>
+                    <div className="temperature-range">
+                      <div className="temp-range-item">Max: 35°C</div>
+                      <div className="temp-range-item">Min: 17°C</div>
+                    </div>
                   </div>
-                </div>
-                <div className="weather-icon-container">
-                  <WeatherIcon type="sun" size="lg" />
+                  <div className="weather-icon-container">
+                    <WeatherIcon type="sun" size="lg" />
+                  </div>
                 </div>
               </div>
             </div>
