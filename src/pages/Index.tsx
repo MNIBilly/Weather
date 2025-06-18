@@ -18,39 +18,32 @@ const Index = () => {
     { day: "Thu", icon: "sun" as const, high: "27°C", low: "18°C" },
   ];
 
-  const weatherMetrics = [
-    { label: "Sunset", value: "20:00" },
-    { label: "UV Index", value: "6" },
-    { label: "Precipitation", value: "0 mm" },
-    { label: "Humidity", value: "65%" },
-  ];
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#4ECDC4] via-[#44B8A3] to-[#3AA394] p-4 lg:p-6">
       <div className="max-w-7xl mx-auto space-y-4 lg:space-y-6">
+        {/* Header with Date Navigation and Search */}
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2">
+            <ChevronLeft className="text-white/70 w-4 h-4 cursor-pointer hover:text-white" />
+            <span className="text-white/90 text-sm font-medium">
+              June 16 2025
+            </span>
+            <ChevronRight className="text-white/70 w-4 h-4 cursor-pointer hover:text-white" />
+          </div>
+          <div className="relative">
+            <Search className="absolute left-2 lg:left-3 top-1/2 transform -translate-y-1/2 text-white/60 w-3 h-3" />
+            <input
+              type="text"
+              placeholder="Search"
+              className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl pl-7 lg:pl-8 pr-2 lg:pr-3 py-1 lg:py-1.5 text-white placeholder-white/60 text-xs w-20 sm:w-24 lg:w-28"
+            />
+          </div>
+        </div>
+
         {/* Top Row - 2 Tables */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-          {/* Table 1: Current Temperature with Search & Date */}
+          {/* Table 1: Current Temperature */}
           <WeatherCard className="p-4 lg:p-6">
-            {/* Header with Date Navigation and Search */}
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
-                <ChevronLeft className="text-white/70 w-4 h-4 cursor-pointer hover:text-white" />
-                <span className="text-white/90 text-sm font-medium">
-                  June 16 2025
-                </span>
-                <ChevronRight className="text-white/70 w-4 h-4 cursor-pointer hover:text-white" />
-              </div>
-              <div className="relative">
-                <Search className="absolute left-2 lg:left-3 top-1/2 transform -translate-y-1/2 text-white/60 w-3 h-3" />
-                <input
-                  type="text"
-                  placeholder="Search"
-                  className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl pl-7 lg:pl-8 pr-2 lg:pr-3 py-1 lg:py-1.5 text-white placeholder-white/60 text-xs w-20 sm:w-24 lg:w-28"
-                />
-              </div>
-            </div>
-
             {/* Temperature Data Table */}
             <div className="flex items-center justify-between">
               <div className="flex-1">
@@ -160,7 +153,7 @@ const Index = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-6">
           {/* Table 3: Hourly Temperature Table */}
           <div className="lg:col-span-5">
-            <WeatherCard className="p-4 lg:p-5">
+            <WeatherCard className="p-4 lg:p-5 -mr-1">
               <div className="flex items-center justify-between gap-3">
                 <button className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl">
                   <ChevronLeft className="w-5 h-5" />
@@ -188,30 +181,50 @@ const Index = () => {
                 </button>
               </div>
             </WeatherCard>
-          </div>
 
-          {/* Table 4: Other Weather Info Grid */}
-          <div className="lg:col-span-3">
-            <div className="grid grid-cols-2 gap-3 h-full">
-              {weatherMetrics.map((metric, index) => (
-                <WeatherCard
-                  key={index}
-                  className="p-3 lg:p-4 text-center flex flex-col justify-center"
-                >
-                  <div className="text-white/70 text-xs mb-1">
-                    {metric.label}
-                  </div>
+            {/* Table 4: Other Weather Info Grid */}
+            <WeatherCard className="p-4 lg:p-6">
+              <div className="grid grid-cols-2 gap-3">
+                {/* UV Index */}
+                <WeatherCard className="p-3 lg:p-4 text-center flex flex-col justify-center">
+                  <div className="text-white/70 text-xs mb-1">UV Index</div>
                   <div className="text-white text-lg lg:text-xl font-light">
-                    {metric.value}
+                    6
                   </div>
                 </WeatherCard>
-              ))}
-            </div>
+
+                {/* Sunset */}
+                <WeatherCard className="p-3 lg:p-4 text-center flex flex-col justify-center">
+                  <div className="text-white/70 text-xs mb-1">Sunset</div>
+                  <div className="text-white text-lg lg:text-xl font-light">
+                    20:00
+                  </div>
+                </WeatherCard>
+
+                {/* Precipitation */}
+                <WeatherCard className="p-3 lg:p-4 text-center flex flex-col justify-center">
+                  <div className="text-white/70 text-xs mb-1">
+                    Precipitation
+                  </div>
+                  <div className="text-white text-lg lg:text-xl font-light">
+                    0 mm
+                  </div>
+                </WeatherCard>
+
+                {/* Humidity */}
+                <WeatherCard className="p-3 lg:p-4 text-center flex flex-col justify-center">
+                  <div className="text-white/70 text-xs mb-1">Humidity</div>
+                  <div className="text-white text-lg lg:text-xl font-light">
+                    65%
+                  </div>
+                </WeatherCard>
+              </div>
+            </WeatherCard>
           </div>
 
           {/* Table 5: 3-Day Forecast Table */}
           <div className="lg:col-span-4">
-            <WeatherCard className="p-4 lg:p-5 h-full">
+            <WeatherCard className="p-4 lg:p-5 h-full -mb-1">
               <h3 className="text-white text-base font-medium mb-3 lg:mb-4">
                 3-Day Forecast
               </h3>
