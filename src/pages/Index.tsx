@@ -86,7 +86,7 @@ const Index = () => {
         {/* Top Row - 2 Tables */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 mt-6">
           {/* Current Temperature with Header */}
-          <WeatherCard className="p-4 lg:p-6">
+          <WeatherCard className="p-4 lg:p-6" style={{ paddingBottom: "62px" }}>
             {/* Header with Date Navigation and Search */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2">
@@ -286,14 +286,21 @@ const Index = () => {
             </WeatherCard>
 
             {/* Weather Metrics Grid */}
-            <div className="grid grid-cols-2 gap-3">
-              {weatherMetrics.map(({ label, value }, index) => (
-                <div key={`${label}-${index}`} className={metricCardClass}>
-                  <div className="text-white/70 text-sm mb-2">{label}</div>
-                  <div className="text-white text-2xl font-light">{value}</div>
-                </div>
-              ))}
-            </div>
+            <WeatherCard className="p-4 lg:p-6">
+              <div className="grid grid-cols-2 gap-4">
+                {weatherMetrics.map(({ label, value }, index) => (
+                  <div
+                    key={`${label}-${index}`}
+                    className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] hover:scale-105 transition-all duration-300 transform-gpu cursor-pointer"
+                  >
+                    <div className="text-white/70 text-sm mb-2">{label}</div>
+                    <div className="text-white text-2xl font-light">
+                      {value}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </WeatherCard>
           </div>
 
           {/* 3-Day Forecast */}
