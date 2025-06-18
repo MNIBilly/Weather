@@ -62,11 +62,33 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        // Weather app specific colors
+        weather: {
+          primary: "#4ECDC4", // Main turquoise
+          secondary: "#44B5A3", // Darker turquoise
+          light: "#6FE8DD", // Light turquoise
+          dark: "#3AA394", // Dark turquoise
+          glass: "rgba(255, 255, 255, 0.15)", // Glass effect
+          "glass-border": "rgba(255, 255, 255, 0.2)",
+        },
+        sun: {
+          DEFAULT: "#FFA726",
+          light: "#FFB74D",
+          dark: "#FF9800",
+        },
+        rain: {
+          DEFAULT: "#42A5F5",
+          light: "#64B5F6",
+          dark: "#1976D2",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      backdropBlur: {
+        xs: "2px",
       },
       keyframes: {
         "accordion-down": {
@@ -85,10 +107,19 @@ export default {
             height: "0",
           },
         },
+        "weather-pulse": {
+          "0%, 100%": {
+            opacity: "1",
+          },
+          "50%": {
+            opacity: "0.8",
+          },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "weather-pulse": "weather-pulse 2s ease-in-out infinite",
       },
     },
   },
