@@ -23,33 +23,10 @@ export const WeatherIcon = ({
       case "sun":
         return (
           <div className={cn("relative", sizeClasses[size])}>
-            {/* Sun rays */}
-            <div className="absolute inset-0 animate-weather-pulse">
-              {[...Array(8)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute w-1 h-3 bg-sun rounded-full"
-                  style={{
-                    top:
-                      size === "xl" ? "-12px" : size === "lg" ? "-8px" : "-6px",
-                    left: "50%",
-                    transformOrigin:
-                      size === "xl"
-                        ? "50% 52px"
-                        : size === "lg"
-                          ? "50% 40px"
-                          : "50% 30px",
-                    transform: `translateX(-50%) rotate(${i * 45}deg)`,
-                  }}
-                />
-              ))}
-            </div>
-            {/* Sun circle */}
-            <div
-              className={cn(
-                "absolute inset-2 bg-sun rounded-full",
-                sizeClasses[size],
-              )}
+            <img
+              src="https://cdn.builder.io/api/v1/assets/c91491cbbb194f4fb9b6d163b60e9d95/image-c45119?format=webp&width=800"
+              alt="Sun icon"
+              className={cn("w-full h-full object-contain", sizeClasses[size])}
             />
           </div>
         );
