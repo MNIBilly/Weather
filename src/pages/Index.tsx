@@ -19,7 +19,15 @@ const Index = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#4ECDC4] via-[#44B8A3] to-[#3AA394] p-4 lg:p-6">
+    <div
+      className="min-h-screen p-4 lg:p-6"
+      style={{
+        backgroundImage: `url('https://cdn.builder.io/api/v1/assets/c91491cbbb194f4fb9b6d163b60e9d95/image-10006d?format=webp&width=800')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
       <div className="max-w-7xl mx-auto space-y-4 lg:space-y-6">
         {/* Top Row - 2 Tables */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 mt-6">
