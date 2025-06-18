@@ -1,8 +1,11 @@
 import { WeatherCard } from "@/components/ui/weather-card";
 import { WeatherIcon } from "@/components/ui/weather-icon";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef } from "react";
 
 const Index = () => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
   const hourlyForecast = [
     { time: "16:00", temp: "27°C", icon: "sun" as const },
     { time: "17:00", temp: "35°C", icon: "sun" as const },
@@ -17,6 +20,18 @@ const Index = () => {
     { day: "Wed", icon: "sun" as const, high: "29°C", low: "18°C" },
     { day: "Thu", icon: "sun" as const, high: "27°C", low: "18°C" },
   ];
+
+  const scrollLeft = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: -200, behavior: "smooth" });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainerRef.current) {
+      scrollContainerRef.current.scrollBy({ left: 200, behavior: "smooth" });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-500 p-4 lg:p-6">
@@ -201,14 +216,24 @@ const Index = () => {
             {/* Table 3: Hourly Temperature Table */}
             <WeatherCard className="p-4 lg:p-5">
               <div className="flex items-center justify-between gap-3">
-                <button className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl">
+                <button
+                  onClick={scrollLeft}
+                  className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl flex-shrink-0"
+                >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
-                <div className="flex-1 flex gap-2 lg:gap-3 overflow-x-auto">
+                <div
+                  ref={scrollContainerRef}
+                  className="flex-1 flex gap-2 lg:gap-3 overflow-x-auto scrollbar-hide"
+                  style={{
+                    scrollbarWidth: "none",
+                    msOverflowStyle: "none",
+                  }}
+                >
                   {hourlyForecast.map((hour, index) => (
                     <div
                       key={index}
-                      className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl p-3 lg:p-4 min-w-[70px] lg:min-w-[80px] text-center space-y-2 hover:bg-white/20 hover:scale-105 transition-all cursor-pointer shadow-[0_4px_15px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.3)] transform-gpu"
+                      className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl p-3 lg:p-4 min-w-[70px] lg:min-w-[80px] text-center space-y-2 hover:bg-white/20 hover:scale-105 transition-all cursor-pointer shadow-[0_4px_15px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.3)] transform-gpu flex-shrink-0"
                     >
                       <div className="text-white font-semibold text-sm lg:text-base">
                         {hour.temp}
@@ -222,7 +247,10 @@ const Index = () => {
                     </div>
                   ))}
                 </div>
-                <button className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl">
+                <button
+                  onClick={scrollRight}
+                  className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl flex-shrink-0"
+                >
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
