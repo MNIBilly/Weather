@@ -238,13 +238,13 @@ const Index = () => {
                 </div>
 
                 {/* Sunset */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] transition-shadow duration-300">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] hover:scale-105 transition-all duration-300 transform-gpu cursor-pointer">
                   <div className="text-white/70 text-sm mb-2">Sunset</div>
                   <div className="text-white text-2xl font-light">20:00</div>
                 </div>
 
                 {/* Precipitation */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] transition-shadow duration-300">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] hover:scale-105 transition-all duration-300 transform-gpu cursor-pointer">
                   <div className="text-white/70 text-sm mb-2">
                     Precipitation
                   </div>
@@ -252,7 +252,7 @@ const Index = () => {
                 </div>
 
                 {/* Humidity */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] transition-shadow duration-300">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] hover:scale-105 transition-all duration-300 transform-gpu cursor-pointer">
                   <div className="text-white/70 text-sm mb-2">Humidity</div>
                   <div className="text-white text-2xl font-light">65%</div>
                 </div>
