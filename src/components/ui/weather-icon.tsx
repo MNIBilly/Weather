@@ -34,51 +34,11 @@ export const WeatherIcon = ({
       case "rain":
         return (
           <div className={cn("relative", sizeClasses[size])}>
-            {/* Cloud */}
-            <div
-              className={cn(
-                "bg-slate-400 rounded-full absolute",
-                size === "xl"
-                  ? "w-16 h-10 top-1"
-                  : size === "lg"
-                    ? "w-12 h-8 top-1"
-                    : "w-10 h-6 top-1",
-              )}
+            <img
+              src="https://cdn.builder.io/api/v1/assets/c91491cbbb194f4fb9b6d163b60e9d95/image-347a59?format=webp&width=800"
+              alt="Rain icon"
+              className={cn("w-full h-full object-contain", sizeClasses[size])}
             />
-            <div
-              className={cn(
-                "bg-slate-400 rounded-full absolute",
-                size === "xl"
-                  ? "w-10 h-6 top-3 left-2"
-                  : size === "lg"
-                    ? "w-8 h-5 top-2 left-2"
-                    : "w-6 h-4 top-1 left-1",
-              )}
-            />
-            <div
-              className={cn(
-                "bg-slate-400 rounded-full absolute",
-                size === "xl"
-                  ? "w-8 h-6 top-3 right-2"
-                  : size === "lg"
-                    ? "w-6 h-5 top-2 right-2"
-                    : "w-5 h-4 top-1 right-1",
-              )}
-            />
-            {/* Rain drops */}
-            {[...Array(4)].map((_, i) => (
-              <div
-                key={i}
-                className={cn(
-                  "absolute bg-rain rounded-full",
-                  size === "xl" ? "w-1 h-3" : "w-0.5 h-2",
-                )}
-                style={{
-                  bottom: size === "xl" ? "-8px" : "-6px",
-                  left: `${25 + i * 15}%`,
-                }}
-              />
-            ))}
           </div>
         );
 
