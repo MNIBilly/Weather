@@ -1,53 +1,100 @@
 import { WeatherCard } from "@/components/ui/weather-card";
 import { WeatherIcon } from "@/components/ui/weather-icon";
 import { Search, ChevronLeft, ChevronRight } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useMemo, useCallback } from "react";
+
+// Types for better type safety
+type WeatherIconType = "sun" | "rain" | "partly-cloudy" | "moon";
+
+interface HourlyForecast {
+  time: string;
+  temp: string;
+  icon: WeatherIconType;
+}
+
+interface DayForecast {
+  day: string;
+  icon: WeatherIconType;
+  high: string;
+  low: string;
+}
+
+interface WeatherMetric {
+  label: string;
+  value: string;
+}
 
 const Index = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const hourlyForecast = [
-    { time: "16:00", temp: "27°C", icon: "sun" as const },
-    { time: "17:00", temp: "35°C", icon: "sun" as const },
-    { time: "18:00", temp: "26°C", icon: "rain" as const },
-    { time: "19:00", temp: "23°C", icon: "sun" as const },
-    { time: "20:00", temp: "19°C", icon: "partly-cloudy" as const },
-    { time: "21:00", temp: "17°C", icon: "moon" as const },
-  ];
+  // Memoized data to prevent unnecessary re-renders
+  const hourlyForecast = useMemo<HourlyForecast[]>(
+    () => [
+      { time: "16:00", temp: "27°C", icon: "sun" },
+      { time: "17:00", temp: "35°C", icon: "sun" },
+      { time: "18:00", temp: "26°C", icon: "rain" },
+      { time: "19:00", temp: "23°C", icon: "sun" },
+      { time: "20:00", temp: "19°C", icon: "partly-cloudy" },
+      { time: "21:00", temp: "17°C", icon: "moon" },
+    ],
+    [],
+  );
 
-  const threeDayForecast = [
-    { day: "Tue", icon: "rain" as const, high: "27°C", low: "19°C" },
-    { day: "Wed", icon: "sun" as const, high: "29°C", low: "18°C" },
-    { day: "Thu", icon: "sun" as const, high: "27°C", low: "18°C" },
-  ];
+  const threeDayForecast = useMemo<DayForecast[]>(
+    () => [
+      { day: "Tue", icon: "rain", high: "27°C", low: "19°C" },
+      { day: "Wed", icon: "sun", high: "29°C", low: "18°C" },
+      { day: "Thu", icon: "sun", high: "27°C", low: "18°C" },
+    ],
+    [],
+  );
 
-  const scrollLeft = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: -200, behavior: "smooth" });
-    }
-  };
+  const weatherMetrics = useMemo<WeatherMetric[]>(
+    () => [
+      { label: "UV Index", value: "6" },
+      { label: "Sunset", value: "20:00" },
+      { label: "Precipitation", value: "0 mm" },
+      { label: "Humidity", value: "65%" },
+    ],
+    [],
+  );
 
-  const scrollRight = () => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollBy({ left: 200, behavior: "smooth" });
-    }
-  };
+  // Optimized scroll functions with useCallback
+  const scrollLeft = useCallback(() => {
+    scrollContainerRef.current?.scrollBy({ left: -200, behavior: "smooth" });
+  }, []);
+
+  const scrollRight = useCallback(() => {
+    scrollContainerRef.current?.scrollBy({ left: 200, behavior: "smooth" });
+  }, []);
+
+  // Common button classes
+  const navButtonClass =
+    "text-white/70 w-4 h-4 cursor-pointer hover:text-white transition-colors";
+  const scrollButtonClass =
+    "text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl flex-shrink-0";
+  const hourlyCardClass =
+    "bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl p-3 lg:p-4 min-w-[70px] lg:min-w-[80px] text-center space-y-2 hover:bg-white/20 hover:scale-105 transition-all cursor-pointer shadow-[0_4px_15px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.3)] transform-gpu flex-shrink-0";
+  const metricCardClass =
+    "bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] hover:scale-105 transition-all duration-300 transform-gpu cursor-pointer";
+  const forecastCardClass =
+    "bg-white/10 rounded-2xl p-4 border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-all duration-300 transform-gpu cursor-pointer";
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-emerald-400 via-teal-400 to-cyan-500 p-4 lg:p-6">
       <div className="max-w-7xl mx-auto space-y-4 lg:space-y-6">
         {/* Top Row - 2 Tables */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 mt-6">
-          {/* Table 1: Current Temperature with Header */}
+          {/* Current Temperature with Header */}
           <WeatherCard className="p-4 lg:p-6">
             {/* Header with Date Navigation and Search */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-2">
-                <ChevronLeft className="text-white/70 w-4 h-4 cursor-pointer hover:text-white" />
+                <ChevronLeft className={navButtonClass} />
                 <span className="text-white/90 text-sm font-medium">
                   June 16 2025
                 </span>
-                <ChevronRight className="text-white/70 w-4 h-4 cursor-pointer hover:text-white" />
+                <ChevronRight className={navButtonClass} />
               </div>
               <div className="relative">
                 <Search className="absolute left-2 lg:left-3 top-1/2 transform -translate-y-1/2 text-white/60 w-3 h-3" />
@@ -59,26 +106,23 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Nested Weather Card for Temperature Data */}
-            <WeatherCard className="p-4 lg:p-6">
-              {/* Temperature Data Table */}
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  <div className="text-5xl font-bold text-white mb-1">27°C</div>
-                  <div className="text-white/90 text-lg mb-3">Maribor</div>
-                  <div className="space-y-1">
-                    <div className="text-white/70 text-sm">Max: 35°C</div>
-                    <div className="text-white/70 text-sm">Min: 17°C</div>
-                  </div>
-                </div>
-                <div className="flex-shrink-0">
-                  <WeatherIcon type="sun" size="lg" />
+            {/* Temperature Display */}
+            <div className="flex items-center justify-between">
+              <div className="flex-1">
+                <div className="text-5xl font-bold text-white mb-1">27°C</div>
+                <div className="text-white/90 text-lg mb-3">Maribor</div>
+                <div className="space-y-1">
+                  <div className="text-white/70 text-sm">Max: 35°C</div>
+                  <div className="text-white/70 text-sm">Min: 17°C</div>
                 </div>
               </div>
-            </WeatherCard>
+              <div className="flex-shrink-0">
+                <WeatherIcon type="sun" size="lg" />
+              </div>
+            </div>
           </WeatherCard>
 
-          {/* Table 2: Temperature Trend Chart */}
+          {/* Temperature Trend Chart */}
           <WeatherCard className="p-4 lg:p-6">
             <div className="flex items-center justify-between mb-6">
               <h3 className="text-white text-lg font-medium">
@@ -94,7 +138,6 @@ const Index = () => {
                 viewBox="0 0 400 180"
                 className="absolute inset-0"
               >
-                {/* Grid */}
                 <defs>
                   <linearGradient
                     id="tempGradient"
@@ -108,23 +151,18 @@ const Index = () => {
                   </linearGradient>
                 </defs>
 
-                {/* Vertical grid lines for each hour */}
-                {[16, 17, 18, 19, 20, 21].map((hour, index) => {
-                  const x = 50 + index * 55;
-                  return (
-                    <line
-                      key={hour}
-                      x1={x}
-                      y1="20"
-                      x2={x}
-                      y2="140"
-                      stroke="rgba(255,255,255,0.08)"
-                      strokeWidth="1"
-                    />
-                  );
-                })}
-
-                {/* Horizontal grid lines */}
+                {/* Grid lines */}
+                {[16, 17, 18, 19, 20, 21].map((hour, index) => (
+                  <line
+                    key={hour}
+                    x1={50 + index * 55}
+                    y1="20"
+                    x2={50 + index * 55}
+                    y2="140"
+                    stroke="rgba(255,255,255,0.08)"
+                    strokeWidth="1"
+                  />
+                ))}
                 {[20, 40, 60, 80, 100, 120, 140].map((y) => (
                   <line
                     key={y}
@@ -137,7 +175,7 @@ const Index = () => {
                   />
                 ))}
 
-                {/* Temperature values on Y-axis */}
+                {/* Temperature values */}
                 {[37, 35, 33, 31, 29, 27, 25].map((temp, index) => (
                   <text
                     key={temp}
@@ -151,7 +189,7 @@ const Index = () => {
                   </text>
                 ))}
 
-                {/* Temperature area and line - adapted to hourly data */}
+                {/* Temperature area and line */}
                 <path
                   d="M 50,100 L 105,45 L 160,55 L 215,65 L 270,90 L 325,110 L 325,140 L 50,140 Z"
                   fill="url(#tempGradient)"
@@ -164,7 +202,7 @@ const Index = () => {
                   strokeLinecap="round"
                 />
 
-                {/* Data points with temperature values */}
+                {/* Data points */}
                 {[
                   { x: 50, y: 100, temp: "27°C" },
                   { x: 105, y: 45, temp: "35°C" },
@@ -197,43 +235,37 @@ const Index = () => {
               </svg>
             </div>
 
-            {/* Time labels with better spacing */}
+            {/* Time labels */}
             <div className="flex justify-between text-sm text-white/70 px-8">
-              <span className="font-medium">16:00</span>
-              <span className="font-medium">17:00</span>
-              <span className="font-medium">18:00</span>
-              <span className="font-medium">19:00</span>
-              <span className="font-medium">20:00</span>
-              <span className="font-medium">21:00</span>
+              {["16:00", "17:00", "18:00", "19:00", "20:00", "21:00"].map(
+                (time) => (
+                  <span key={time} className="font-medium">
+                    {time}
+                  </span>
+                ),
+              )}
             </div>
           </WeatherCard>
         </div>
 
-        {/* Bottom Row - New Layout */}
+        {/* Bottom Row */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6">
-          {/* Left Column: Hourly Temperature and Weather Info */}
+          {/* Left Column */}
           <div className="space-y-4 lg:space-y-6">
-            {/* Table 3: Hourly Temperature Table */}
+            {/* Hourly Temperature Table */}
             <WeatherCard className="p-4 lg:p-5">
               <div className="flex items-center justify-between gap-3">
-                <button
-                  onClick={scrollLeft}
-                  className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl flex-shrink-0"
-                >
+                <button onClick={scrollLeft} className={scrollButtonClass}>
                   <ChevronLeft className="w-5 h-5" />
                 </button>
                 <div
                   ref={scrollContainerRef}
                   className="flex-1 flex gap-2 lg:gap-3 overflow-x-auto scrollbar-hide"
-                  style={{
-                    scrollbarWidth: "none",
-                    msOverflowStyle: "none",
-                  }}
                 >
                   {hourlyForecast.map((hour, index) => (
                     <div
-                      key={index}
-                      className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl p-3 lg:p-4 min-w-[70px] lg:min-w-[80px] text-center space-y-2 hover:bg-white/20 hover:scale-105 transition-all cursor-pointer shadow-[0_4px_15px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.3)] transform-gpu flex-shrink-0"
+                      key={`${hour.time}-${index}`}
+                      className={hourlyCardClass}
                     >
                       <div className="text-white font-semibold text-sm lg:text-base">
                         {hour.temp}
@@ -247,70 +279,43 @@ const Index = () => {
                     </div>
                   ))}
                 </div>
-                <button
-                  onClick={scrollRight}
-                  className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl flex-shrink-0"
-                >
+                <button onClick={scrollRight} className={scrollButtonClass}>
                   <ChevronRight className="w-5 h-5" />
                 </button>
               </div>
             </WeatherCard>
 
-            {/* Table 4: Other Weather Info Grid */}
-            <WeatherCard className="p-4 lg:p-6">
-              <div className="grid grid-cols-2 gap-4">
-                {/* UV Index */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] hover:scale-105 transition-all duration-300 transform-gpu cursor-pointer">
-                  <div className="text-white/70 text-sm mb-2">UV Index</div>
-                  <div className="text-white text-2xl font-light">6</div>
+            {/* Weather Metrics Grid */}
+            <div className="grid grid-cols-2 gap-3">
+              {weatherMetrics.map(({ label, value }, index) => (
+                <div key={`${label}-${index}`} className={metricCardClass}>
+                  <div className="text-white/70 text-sm mb-2">{label}</div>
+                  <div className="text-white text-2xl font-light">{value}</div>
                 </div>
-
-                {/* Sunset */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] hover:scale-105 transition-all duration-300 transform-gpu cursor-pointer">
-                  <div className="text-white/70 text-sm mb-2">Sunset</div>
-                  <div className="text-white text-2xl font-light">20:00</div>
-                </div>
-
-                {/* Precipitation */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] hover:scale-105 transition-all duration-300 transform-gpu cursor-pointer">
-                  <div className="text-white/70 text-sm mb-2">
-                    Precipitation
-                  </div>
-                  <div className="text-white text-2xl font-light">0 mm</div>
-                </div>
-
-                {/* Humidity */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] hover:scale-105 transition-all duration-300 transform-gpu cursor-pointer">
-                  <div className="text-white/70 text-sm mb-2">Humidity</div>
-                  <div className="text-white text-2xl font-light">65%</div>
-                </div>
-              </div>
-            </WeatherCard>
+              ))}
+            </div>
           </div>
 
-          {/* Right Column: 3-Day Forecast - Stretched like Temperature Trend */}
+          {/* 3-Day Forecast */}
           <WeatherCard className="p-4 lg:p-6">
             <h3 className="text-white text-lg font-medium mb-4">
               3-Day Forecast
             </h3>
             <div className="space-y-4">
-              {threeDayForecast.map((day, index) => (
-                <div
-                  key={index}
-                  className="bg-white/10 rounded-2xl p-4 border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.3)] hover:scale-[1.02] transition-all duration-300 transform-gpu cursor-pointer"
-                >
+              {threeDayForecast.map(({ day, icon, high, low }, index) => (
+                <div key={`${day}-${index}`} className={forecastCardClass}>
                   <div className="grid grid-cols-12 items-center gap-3">
                     <div className="col-span-2 text-white font-medium text-base">
-                      {day.day}
+                      {day}
                     </div>
                     <div className="col-span-4 flex justify-center">
-                      <WeatherIcon type={day.icon} size="md" />
+                      <WeatherIcon type={icon} size="md" />
                     </div>
                     <div className="col-span-6 text-right">
                       <div className="text-white font-semibold text-lg">
-                        {day.high}
+                        {high}
                       </div>
-                      <div className="text-white/70 text-sm">{day.low}</div>
+                      <div className="text-white/70 text-sm">{low}</div>
                     </div>
                   </div>
                 </div>
