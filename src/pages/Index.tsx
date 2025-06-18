@@ -208,7 +208,7 @@ const Index = () => {
                   {hourlyForecast.map((hour, index) => (
                     <div
                       key={index}
-                      className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl p-3 lg:p-4 min-w-[70px] lg:min-w-[80px] text-center space-y-2 hover:bg-white/20 transition-colors cursor-pointer"
+                      className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl p-3 lg:p-4 min-w-[70px] lg:min-w-[80px] text-center space-y-2 hover:bg-white/20 transition-all cursor-pointer shadow-[0_4px_15px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.3)]"
                     >
                       <div className="text-white font-semibold text-sm lg:text-base">
                         {hour.temp}
@@ -232,19 +232,19 @@ const Index = () => {
             <WeatherCard className="p-4 lg:p-6">
               <div className="grid grid-cols-2 gap-4">
                 {/* UV Index */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] transition-shadow duration-300">
                   <div className="text-white/70 text-sm mb-2">UV Index</div>
                   <div className="text-white text-2xl font-light">6</div>
                 </div>
 
                 {/* Sunset */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] transition-shadow duration-300">
                   <div className="text-white/70 text-sm mb-2">Sunset</div>
                   <div className="text-white text-2xl font-light">20:00</div>
                 </div>
 
                 {/* Precipitation */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] transition-shadow duration-300">
                   <div className="text-white/70 text-sm mb-2">
                     Precipitation
                   </div>
@@ -252,7 +252,7 @@ const Index = () => {
                 </div>
 
                 {/* Humidity */}
-                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center">
+                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center shadow-[0_4px_20px_rgba(0,0,0,0.25)] hover:shadow-[0_6px_25px_rgba(0,0,0,0.35)] transition-shadow duration-300">
                   <div className="text-white/70 text-sm mb-2">Humidity</div>
                   <div className="text-white text-2xl font-light">65%</div>
                 </div>
@@ -269,7 +269,7 @@ const Index = () => {
               {threeDayForecast.map((day, index) => (
                 <div
                   key={index}
-                  className="bg-white/10 rounded-2xl p-4 border border-white/15"
+                  className="bg-white/10 rounded-2xl p-4 border border-white/15 shadow-[0_4px_16px_rgba(0,0,0,0.2)] hover:shadow-[0_6px_20px_rgba(0,0,0,0.3)] transition-shadow duration-300"
                 >
                   <div className="grid grid-cols-12 items-center gap-3">
                     <div className="col-span-2 text-white font-medium text-base">
