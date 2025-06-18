@@ -15,11 +15,11 @@ export const WeatherCard = ({
   return (
     <div
       className={cn(
-        "bg-weather-glass backdrop-blur-xs border border-weather-glass-border rounded-2xl p-6 text-white shadow-lg",
+        "bg-white/15 backdrop-blur-md border border-white/20 rounded-3xl text-white shadow-xl",
         {
           "p-4": variant === "small",
           "p-6": variant === "default",
-          "p-6 h-48": variant === "chart",
+          "p-6": variant === "chart",
         },
         className,
       )}
