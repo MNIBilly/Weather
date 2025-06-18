@@ -229,39 +229,35 @@ const Index = () => {
             </WeatherCard>
 
             {/* Table 4: Other Weather Info Grid */}
-            <div className="grid grid-cols-2 gap-3">
-              {/* UV Index */}
-              <WeatherCard className="p-3 lg:p-4 text-center flex flex-col justify-center">
-                <div className="text-white/70 text-xs mb-1">UV Index</div>
-                <div className="text-white text-lg lg:text-xl font-light">
-                  6
+            <WeatherCard className="p-4 lg:p-6">
+              <div className="grid grid-cols-2 gap-4">
+                {/* UV Index */}
+                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center">
+                  <div className="text-white/70 text-sm mb-2">UV Index</div>
+                  <div className="text-white text-2xl font-light">6</div>
                 </div>
-              </WeatherCard>
 
-              {/* Sunset */}
-              <WeatherCard className="p-3 lg:p-4 text-center flex flex-col justify-center">
-                <div className="text-white/70 text-xs mb-1">Sunset</div>
-                <div className="text-white text-lg lg:text-xl font-light">
-                  20:00
+                {/* Sunset */}
+                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center">
+                  <div className="text-white/70 text-sm mb-2">Sunset</div>
+                  <div className="text-white text-2xl font-light">20:00</div>
                 </div>
-              </WeatherCard>
 
-              {/* Precipitation */}
-              <WeatherCard className="p-3 lg:p-4 text-center flex flex-col justify-center">
-                <div className="text-white/70 text-xs mb-1">Precipitation</div>
-                <div className="text-white text-lg lg:text-xl font-light">
-                  0 mm
+                {/* Precipitation */}
+                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center">
+                  <div className="text-white/70 text-sm mb-2">
+                    Precipitation
+                  </div>
+                  <div className="text-white text-2xl font-light">0 mm</div>
                 </div>
-              </WeatherCard>
 
-              {/* Humidity */}
-              <WeatherCard className="p-3 lg:p-4 text-center flex flex-col justify-center">
-                <div className="text-white/70 text-xs mb-1">Humidity</div>
-                <div className="text-white text-lg lg:text-xl font-light">
-                  65%
+                {/* Humidity */}
+                <div className="bg-white/10 backdrop-blur-sm border border-white/15 rounded-2xl p-4 text-center">
+                  <div className="text-white/70 text-sm mb-2">Humidity</div>
+                  <div className="text-white text-2xl font-light">65%</div>
                 </div>
-              </WeatherCard>
-            </div>
+              </div>
+            </WeatherCard>
           </div>
 
           {/* Right Column: 3-Day Forecast - Stretched like Temperature Trend */}
