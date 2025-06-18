@@ -49,9 +49,7 @@ const Index = () => {
               {/* Temperature Data Table */}
               <div className="flex items-center justify-between">
                 <div className="flex-1">
-                  <div className="text-5xl font-light text-white mb-1">
-                    27°C
-                  </div>
+                  <div className="text-5xl font-bold text-white mb-1">27°C</div>
                   <div className="text-white/90 text-lg mb-3">Maribor</div>
                   <div className="space-y-1">
                     <div className="text-white/70 text-sm">Max: 35°C</div>
