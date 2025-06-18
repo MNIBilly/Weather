@@ -67,18 +67,18 @@ const Index = () => {
 
           {/* Table 2: Temperature Trend Chart */}
           <WeatherCard className="p-4 lg:p-6">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-white text-base font-medium">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-white text-lg font-medium">
                 Temperature Trend
               </h3>
-              <div className="text-white/70 text-xs">°C</div>
+              <div className="text-white/70 text-sm">°C</div>
             </div>
 
-            <div className="relative h-32">
+            <div className="relative h-48 mb-4">
               <svg
                 width="100%"
                 height="100%"
-                viewBox="0 0 300 120"
+                viewBox="0 0 400 180"
                 className="absolute inset-0"
               >
                 {/* Grid */}
@@ -90,66 +90,108 @@ const Index = () => {
                     x2="0%"
                     y2="100%"
                   >
-                    <stop offset="0%" stopColor="#FFA726" stopOpacity="0.3" />
+                    <stop offset="0%" stopColor="#FFA726" stopOpacity="0.4" />
                     <stop offset="100%" stopColor="#FFA726" stopOpacity="0" />
                   </linearGradient>
                 </defs>
 
-                {/* Grid lines */}
-                {[20, 40, 60, 80, 100].map((y) => (
+                {/* Vertical grid lines for each hour */}
+                {[16, 17, 18, 19, 20, 21].map((hour, index) => {
+                  const x = 50 + index * 55;
+                  return (
+                    <line
+                      key={hour}
+                      x1={x}
+                      y1="20"
+                      x2={x}
+                      y2="140"
+                      stroke="rgba(255,255,255,0.08)"
+                      strokeWidth="1"
+                    />
+                  );
+                })}
+
+                {/* Horizontal grid lines */}
+                {[20, 40, 60, 80, 100, 120, 140].map((y) => (
                   <line
                     key={y}
-                    x1="20"
+                    x1="30"
                     y1={y}
-                    x2="280"
+                    x2="370"
                     y2={y}
                     stroke="rgba(255,255,255,0.1)"
                     strokeWidth="1"
                   />
                 ))}
 
-                {/* Temperature area and line */}
+                {/* Temperature values on Y-axis */}
+                {[37, 35, 33, 31, 29, 27, 25].map((temp, index) => (
+                  <text
+                    key={temp}
+                    x="15"
+                    y={25 + index * 20}
+                    fill="rgba(255,255,255,0.6)"
+                    fontSize="10"
+                    textAnchor="middle"
+                  >
+                    {temp}°
+                  </text>
+                ))}
+
+                {/* Temperature area and line - adapted to hourly data */}
                 <path
-                  d="M 40,80 L 80,60 L 120,65 L 160,70 L 200,85 L 240,95 L 240,110 L 40,110 Z"
+                  d="M 50,100 L 105,45 L 160,55 L 215,65 L 270,90 L 325,110 L 325,140 L 50,140 Z"
                   fill="url(#tempGradient)"
                 />
                 <path
-                  d="M 40,80 L 80,60 L 120,65 L 160,70 L 200,85 L 240,95"
+                  d="M 50,100 L 105,45 L 160,55 L 215,65 L 270,90 L 325,110"
                   fill="none"
                   stroke="#FFA726"
-                  strokeWidth="2.5"
+                  strokeWidth="3"
                   strokeLinecap="round"
                 />
 
-                {/* Data points */}
+                {/* Data points with temperature values */}
                 {[
-                  { x: 40, y: 80 },
-                  { x: 80, y: 60 },
-                  { x: 120, y: 65 },
-                  { x: 160, y: 70 },
-                  { x: 200, y: 85 },
-                  { x: 240, y: 95 },
+                  { x: 50, y: 100, temp: "27°C" },
+                  { x: 105, y: 45, temp: "35°C" },
+                  { x: 160, y: 55, temp: "33°C" },
+                  { x: 215, y: 65, temp: "31°C" },
+                  { x: 270, y: 90, temp: "29°C" },
+                  { x: 325, y: 110, temp: "25°C" },
                 ].map((point, i) => (
-                  <circle
-                    key={i}
-                    cx={point.x}
-                    cy={point.y}
-                    r="3"
-                    fill="#FFA726"
-                    stroke="white"
-                    strokeWidth="1.5"
-                  />
+                  <g key={i}>
+                    <circle
+                      cx={point.x}
+                      cy={point.y}
+                      r="4"
+                      fill="#FFA726"
+                      stroke="white"
+                      strokeWidth="2"
+                    />
+                    <text
+                      x={point.x}
+                      y={point.y - 12}
+                      fill="white"
+                      fontSize="10"
+                      textAnchor="middle"
+                      fontWeight="600"
+                    >
+                      {point.temp}
+                    </text>
+                  </g>
                 ))}
               </svg>
             </div>
 
-            <div className="flex justify-between text-xs text-white/60 mt-2">
-              <span>16:00</span>
-              <span>17:00</span>
-              <span>18:00</span>
-              <span>19:00</span>
-              <span>20:00</span>
-              <span>21:00</span>
+            {/* Time labels with better spacing */}
+            <div className="flex justify-between text-sm text-white/70 px-8">
+              <span className="font-medium">16:00</span>
+              <span className="font-medium">17:00</span>
+              <span className="font-medium">18:00</span>
+              <span className="font-medium">19:00</span>
+              <span className="font-medium">20:00</span>
+              <span className="font-medium">21:00</span>
             </div>
           </WeatherCard>
         </div>
