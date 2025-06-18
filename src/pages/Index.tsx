@@ -161,25 +161,31 @@ const Index = () => {
           {/* Table 3: Hourly Temperature Table */}
           <div className="lg:col-span-5">
             <WeatherCard className="p-4 lg:p-5">
-              <div className="flex items-center justify-between">
-                <ChevronLeft className="text-white/50 w-4 h-4 cursor-pointer hidden sm:block" />
-                <div className="flex-1 grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3 mx-0 sm:mx-4">
+              <div className="flex items-center justify-between gap-3">
+                <button className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl">
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <div className="flex-1 flex gap-2 lg:gap-3 overflow-x-auto">
                   {hourlyForecast.map((hour, index) => (
                     <div
                       key={index}
-                      className="text-center space-y-1 sm:space-y-2"
+                      className="bg-white/15 backdrop-blur-sm border border-white/20 rounded-2xl p-3 lg:p-4 min-w-[70px] lg:min-w-[80px] text-center space-y-2 hover:bg-white/20 transition-colors cursor-pointer"
                     >
-                      <div className="text-white font-medium text-xs sm:text-sm">
+                      <div className="text-white font-semibold text-sm lg:text-base">
                         {hour.temp}
                       </div>
                       <div className="flex justify-center">
                         <WeatherIcon type={hour.icon} size="sm" />
                       </div>
-                      <div className="text-white/70 text-xs">{hour.time}</div>
+                      <div className="text-white/80 text-xs font-medium">
+                        {hour.time}
+                      </div>
                     </div>
                   ))}
                 </div>
-                <ChevronRight className="text-white/50 w-4 h-4 cursor-pointer hidden sm:block" />
+                <button className="text-white/60 hover:text-white transition-colors p-2 hover:bg-white/10 rounded-xl">
+                  <ChevronRight className="w-5 h-5" />
+                </button>
               </div>
             </WeatherCard>
           </div>
